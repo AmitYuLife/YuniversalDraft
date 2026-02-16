@@ -6,20 +6,20 @@ import { FadeIn } from "@/components/animations";
 import { ScrollingMarquee } from "@/components/ui/ScrollingMarquee";
 
 const LOGO_ROW_1 = [
-  { name: "Santander", src: "/images/trust-logos-new/santander.png", width: 254, height: 44 },
-  { name: "Fujitsu", src: "/images/trust-logos-new/fujitsu.png", width: 131, height: 64 },
-  { name: "Sodexo", src: "/images/trust-logos-new/sodexo.png", width: 149, height: 50 },
-  { name: "Capital One", src: "/images/trust-logos-new/capital-one.png", width: 157, height: 56 },
-  { name: "Havas", src: "/images/trust-logos-new/havas.png", width: 113, height: 64 },
-  { name: "Fyxer", src: "/images/trust-logos-new/fyxer.png", width: 199, height: 64 },
+  { name: "Santander", src: "/YuniversalDraft/images/trust-logos-new/santander.png", width: 254, height: 44 },
+  { name: "Fujitsu", src: "/YuniversalDraft/images/trust-logos-new/fujitsu.png", width: 131, height: 64 },
+  { name: "Sodexo", src: "/YuniversalDraft/images/trust-logos-new/sodexo.png", width: 149, height: 50 },
+  { name: "Capital One", src: "/YuniversalDraft/images/trust-logos-new/capital-one.png", width: 157, height: 56 },
+  { name: "Havas", src: "/YuniversalDraft/images/trust-logos-new/havas.png", width: 113, height: 64 },
+  { name: "Fyxer", src: "/YuniversalDraft/images/trust-logos-new/fyxer.png", width: 199, height: 64 },
 ];
 
 const LOGO_ROW_2 = [
-  { name: "Sotheby's", src: "/images/trust-logos-new/sotheby-s.png", width: 186, height: 48 },
-  { name: "Abel & Cole", src: "/images/trust-logos-new/abel-cole.png", width: 222, height: 64 },
-  { name: "Curve", src: "/images/trust-logos-new/curve.png", width: 179, height: 40 },
-  { name: "Fyxer", src: "/images/trust-logos-new/fyxer.png", width: 199, height: 64 },
-  { name: "Rightmove", src: "/images/trust-logos-new/vector.png", width: 237, height: 48 },
+  { name: "Sotheby's", src: "/YuniversalDraft/images/trust-logos-new/sotheby-s.png", width: 186, height: 48 },
+  { name: "Abel & Cole", src: "/YuniversalDraft/images/trust-logos-new/abel-cole.png", width: 222, height: 64 },
+  { name: "Curve", src: "/YuniversalDraft/images/trust-logos-new/curve.png", width: 179, height: 40 },
+
+  { name: "Rightmove", src: "/YuniversalDraft/images/trust-logos-new/rightmove.png", width: 237, height: 48 },
 ];
 
 /**

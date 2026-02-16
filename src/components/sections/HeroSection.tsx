@@ -126,7 +126,7 @@ export function HeroSection() {
       {/* Yugi mascot animation - follows exact Figma design specs */}
       <div className="relative" style={{ zIndex: 5 }}>
         <YugiAnimation
-          imageSrc="/images/yugi.png"
+          imageSrc="/YuniversalDraft/images/yugi.png"
           alt="Yugi flying in his rocket ship"
           size={456}
         />

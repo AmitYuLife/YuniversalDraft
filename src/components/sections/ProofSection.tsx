@@ -8,27 +8,27 @@ const AWARDS = [
   {
     title: "Best Financial Wellbeing Provider",
     source: "Corporate Advisor Awards",
-    image: "/images/awards/best-financial-wellbeing-provider.png",
+    image: "/YuniversalDraft/images/awards/best-financial-wellbeing-provider.png",
   },
   {
     title: "5-star Insurance Technology Provider",
     source: "Insurance Business Magazine",
-    image: "/images/awards/5-star-insurance-technology.png",
+    image: "/YuniversalDraft/images/awards/5-star-insurance-technology.png",
   },
   {
     title: "Best Places to Work",
     source: "Sunday Times",
-    image: "/images/awards/best-places-to-work.png",
+    image: "/YuniversalDraft/images/awards/best-places-to-work.png",
   },
   {
     title: "Best Places to Work",
     source: "Sunday Times · Sifted",
-    image: "/images/awards/best-places-to-work-sifted.png",
+    image: "/YuniversalDraft/images/awards/best-places-to-work-sifted.png",
   },
   {
     title: "Certified B Corporation",
     source: "B Corp",
-    image: "/images/awards/certified-b-corporation.png",
+    image: "/YuniversalDraft/images/awards/certified-b-corporation.png",
   },
 ] as const;
 
