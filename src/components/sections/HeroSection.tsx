@@ -149,9 +149,7 @@ export function HeroSection() {
 
             <FadeIn delay={0.4} y={30}>
               <p className="max-w-text text-center text-body-lg text-white/90">
-                Say hello to YuLife – the new way to create real impact for your
-                people by keeping them engaged and offering enhanced protection
-                and wellbeing tools.
+                Say hello to YuLife - all-in-one health and insurance benefits designed to be valued every day.
               </p>
             </FadeIn>
           </div>
