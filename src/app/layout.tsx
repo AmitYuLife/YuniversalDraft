@@ -6,6 +6,10 @@ export const metadata: Metadata = {
   title: "YuLife — Employee Benefits That People Love",
   description:
     "YuLife transforms employee benefits with a fresh approach that rewards healthy living.",
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default function RootLayout({
