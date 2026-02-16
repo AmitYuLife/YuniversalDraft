@@ -161,7 +161,7 @@ export function YuCoinBackground() {
           } as React.CSSProperties & { '--rotation-start': string; '--rotation-end': string }}
         >
           <img
-            src="/images/yucoin.png"
+            src="/YuniversalDraft/images/yucoin.png"
             alt=""
             className="h-full w-full"
           />
@@ -188,7 +188,7 @@ export function YuCoinBackground() {
             } as React.CSSProperties & { '--rotation-start': string; '--rotation-end': string }}
           >
             <img
-              src="/images/yucoin.png"
+              src="/YuniversalDraft/images/yucoin.png"
               alt=""
               className="h-full w-full pointer-events-none"
             />

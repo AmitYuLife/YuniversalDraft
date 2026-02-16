@@ -32,7 +32,7 @@ export function YunityLogo({ width = 380, className }: YunityLogoProps) {
   
   return (
     <Image
-      src="/images/yunity-logo.png"
+      src="/YuniversalDraft/images/yunity-logo.png"
       alt="Yunity"
       width={width}
       height={height}

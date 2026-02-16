@@ -19,14 +19,14 @@ export default function RootLayout({
         {/* Preload critical fonts for better performance */}
         <link
           rel="preload"
-          href="/fonts/lota/3B06D5_A_0.woff2"
+          href="/YuniversalDraft/fonts/lota/3B06D5_A_0.woff2"
           as="font"
           type="font/woff2"
           crossOrigin="anonymous"
         />
         <link
           rel="preload"
-          href="/fonts/berlingske/BerlingskeSerif-Bd.woff2"
+          href="/YuniversalDraft/fonts/berlingske/BerlingskeSerif-Bd.woff2"
           as="font"
           type="font/woff2"
           crossOrigin="anonymous"
