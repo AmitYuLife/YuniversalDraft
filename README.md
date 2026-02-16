@@ -1,36 +1,95 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# YuLife Website v1
+
+A modern Next.js website with a Figma-driven design system, headless CMS architecture, and GSAP animations.
+
+## Tech Stack
+
+- **Next.js 16** (App Router) with TypeScript
+- **Tailwind CSS v4** with design tokens
+- **GSAP** for smooth animations
+- **Headless CMS** abstraction (ready for Contentful, Sanity, etc.)
+- **Figma Console MCP** for design-to-code sync
 
 ## Getting Started
 
-First, run the development server:
+Install dependencies and run the development server:
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to see the site.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+src/
+├── app/                    # Next.js App Router pages
+│   ├── page.tsx           # Home page
+│   ├── products/          # Products page
+│   ├── solutions/         # Solutions page
+│   ├── pricing/           # Pricing page
+│   ├── about/             # About page
+│   └── blog/              # Blog page
+├── components/
+│   ├── animations/        # GSAP animation components
+│   ├── layout/            # Header, Footer
+│   └── sections/          # Hero, Cards, Text sections
+├── design-system/
+│   ├── tokens/            # Design tokens (colors, typography, spacing, etc.)
+│   └── primitives/        # Base UI components (Button, Text, Stack, Card, etc.)
+└── lib/
+    ├── cms/               # CMS abstraction layer
+    └── gsap/              # GSAP utilities and hooks
+```
 
-## Learn More
+## Design System
 
-To learn more about Next.js, take a look at the following resources:
+Design tokens in `src/design-system/tokens/` mirror Figma variable collections and feed into Tailwind via CSS custom properties in `globals.css`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+To sync with Figma:
+1. Connect via Figma Console MCP
+2. Use `figma_get_variables` to read design tokens
+3. Update token files to match
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Animations
 
-## Deploy on Vercel
+GSAP is configured for smooth animations. See [docs/ANIMATIONS.md](docs/ANIMATIONS.md) for usage examples.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Quick example:
+```tsx
+import { FadeIn } from "@/components/animations";
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+<FadeIn scrollTrigger delay={0.2}>
+  <Text variant="heading-lg">Animated content</Text>
+</FadeIn>
+```
+
+## CMS Integration
+
+The CMS layer is abstracted in `src/lib/cms/`. Currently using mock data for development.
+
+To integrate a real CMS:
+1. Create a new client (e.g., `contentful-client.ts`)
+2. Implement the `CMSClient` interface
+3. Add to the factory in `client.ts`
+4. Set `CMS_PROVIDER` in `.env`
+
+## Build & Deploy
+
+```bash
+npm run build       # Production build
+npm run start       # Start production server
+```
+
+Deploy to Vercel, Netlify, or any Node.js hosting platform.
+
+## Documentation
+
+- [Grid System Guide](docs/GRID.md) - 12-column grid matching Figma
+- [Animation Guide](docs/ANIMATIONS.md) - GSAP animation usage
+- [Font Integration Guide](docs/FONTS.md) - Custom web fonts setup
+- [Next.js Docs](https://nextjs.org/docs)
+- [Tailwind v4 Docs](https://tailwindcss.com/docs)
+- [GSAP Docs](https://greensock.com/docs/)

@@ -1,26 +1,691 @@
+@import "../styles/fonts/font-face.css";
 @import "tailwindcss";
 
+/* =========================================================================
+   Design Tokens — CSS Custom Properties
+   =========================================================================
+   Auto-synced from Figma variable collections:
+     • Primitives  → Brand / Foundations library
+     • Global Tokens → Brand / Foundations library
+     • Styling     → Local semantic tokens
+     • Typography  → Responsive type scale (Desktop / Tablet / Mobile)
+   ========================================================================= */
+
+/* ─── Primitives: Color Palette ─────────────────────────────────────────── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Purple */
+  --color-purple-100: #f4f0ff;
+  --color-purple-200: #eae1ff;
+  --color-purple-300: #dfd3ff;
+  --color-purple-400: #d2c2fd;
+  --color-purple-500: #c7b4fd;
+  --color-purple-600: #956aff;
+  --color-purple-700: #6953f3;
+  --color-purple-800: #340080;
+  --color-purple-900: #290163;
+
+  /* Indigo */
+  --color-indigo-100: #deefff;
+  --color-indigo-200: #bee0ff;
+  --color-indigo-300: #9bcfff;
+  --color-indigo-400: #6db9ff;
+  --color-indigo-500: #2697ff;
+  --color-indigo-600: #1675ff;
+  --color-indigo-700: #1a54ff;
+  --color-indigo-800: #2a35f5;
+  --color-indigo-900: #3112f1;
+
+  /* Blue */
+  --color-blue-100: #e3f7fc;
+  --color-blue-200: #caeff9;
+  --color-blue-300: #b2ecfb;
+  --color-blue-400: #94ddf1;
+  --color-blue-500: #7edcf5;
+  --color-blue-600: #00c0f3;
+
+  /* Teal */
+  --color-teal-100: #d9faff;
+  --color-teal-200: #aaf5ff;
+  --color-teal-300: #6deeff;
+  --color-teal-400: #31e6ff;
+  --color-teal-500: #00ccea;
+  --color-teal-600: #00b8de;
+  --color-teal-700: #00a4d2;
+  --color-teal-800: #008fc6;
+  --color-teal-900: #007abc;
+
+  /* Green */
+  --color-green-100: #e4fcf4;
+  --color-green-200: #caf8e8;
+  --color-green-300: #b1f9e0;
+  --color-green-400: #99f8d7;
+  --color-green-500: #80f6cd;
+  --color-green-600: #00ed9d;
+
+  /* Pine */
+  --color-pine-100: #d9fff1;
+  --color-pine-200: #b3fae1;
+  --color-pine-300: #89eac7;
+  --color-pine-400: #68dcb2;
+  --color-pine-500: #43cd9b;
+  --color-pine-600: #38be8f;
+  --color-pine-700: #28a87f;
+  --color-pine-800: #17926f;
+  --color-pine-900: #007357;
+
+  /* Yellow */
+  --color-yellow-100: #fffbe5;
+  --color-yellow-200: #fff7cc;
+  --color-yellow-300: #fff3b2;
+  --color-yellow-400: #ffef99;
+  --color-yellow-500: #ffeb80;
+  --color-yellow-600: #ffd600;
+
+  /* Gold */
+  --color-gold-100: #fffdcf;
+  --color-gold-200: #fff7ab;
+  --color-gold-300: #fff389;
+  --color-gold-400: #ffef5a;
+  --color-gold-500: #ffde2e;
+  --color-gold-600: #f1c527;
+  --color-gold-700: #e3ac1f;
+  --color-gold-800: #d49216;
+  --color-gold-850: #db8200;
+  --color-gold-900: #bf6c0a;
+
+  /* Orange */
+  --color-orange-100: #ffeee5;
+  --color-orange-200: #ffdecf;
+  --color-orange-300: #ffbc9c;
+  --color-orange-400: #ff9a69;
+  --color-orange-500: #ff7836;
+  --color-orange-600: #f06b2a;
+  --color-orange-700: #e45e1d;
+  --color-orange-800: #c34e15;
+  --color-orange-900: #b53c01;
+
+  /* Red */
+  --color-red-100: #ffeced;
+  --color-red-200: #ffd0d6;
+  --color-red-300: #ffb9c4;
+  --color-red-400: #ff9daf;
+  --color-red-500: #ff7893;
+  --color-red-600: #f65d84;
+  --color-red-700: #f14979;
+  --color-red-800: #e5346c;
+  --color-red-900: #bf1a54;
+
+  /* Pink */
+  --color-pink-100: #fce7f1;
+  --color-pink-200: #f9cee4;
+  --color-pink-300: #f7b7d6;
+  --color-pink-400: #f49dc8;
+  --color-pink-500: #f186ba;
+  --color-pink-600: #f43e8e;
+  --color-pink-700: #e30d76;
+  --color-pink-800: #cc0d6e;
+  --color-pink-900: #900860;
+
+  /* Violet */
+  --color-violet-100: #f9e6ff;
+  --color-violet-200: #f3d5ff;
+  --color-violet-300: #ebbaff;
+  --color-violet-400: #e1a3ff;
+  --color-violet-500: #d171ff;
+  --color-violet-600: #c547ff;
+  --color-violet-700: #ae13f5;
+  --color-violet-800: #9309d4;
+  --color-violet-900: #7900b2;
+
+  /* Neutral */
+  --color-neutral-white: #ffffff;
+  --color-neutral-50: #fafafe;
+  --color-neutral-100: #fbfbfb;
+  --color-neutral-200: #f5f5f5;
+  --color-neutral-300: #e3e3e1;
+  --color-neutral-400: #d9d9d7;
+  --color-neutral-500: #a0a09b;
+  --color-neutral-600: #5c5757;
+  --color-neutral-700: #464647;
+  --color-neutral-black: #000000;
+
+  /* Transparent */
+  --color-trans-white: #ffffff;
+  --color-trans-black: #000000;
+
+  /* Misc / Feedback */
+  --color-misc-burgundy: #640038;
+  --color-misc-success-light: #ecf9ee;
+  --color-misc-success-dark: #66cc78;
+  --color-misc-error-light: #fff2f2;
+  --color-misc-error-dark: #ff5f5f;
+  --color-misc-warning-light: #fff7e6;
+  --color-misc-warning-dark: #f19e22;
+  --color-misc-info-light: #e6edf9;
+  --color-misc-info-dark: #5a89d8;
+
+  /* ─── Primitives: Spacing ────────────────────────────────────────────── */
+  --spacing-0: 0px;
+  --spacing-4: 4px;
+  --spacing-8: 8px;
+  --spacing-10: 10px;
+  --spacing-12: 12px;
+  --spacing-14: 14px;
+  --spacing-16: 16px;
+  --spacing-20: 20px;
+  --spacing-24: 24px;
+  --spacing-32: 32px;
+  --spacing-40: 40px;
+  --spacing-48: 48px;
+  --spacing-56: 56px;
+  --spacing-64: 64px;
+  --spacing-72: 72px;
+  --spacing-80: 80px;
+  --spacing-88: 88px;
+  --spacing-96: 96px;
+  --spacing-104: 104px;
+  --spacing-120: 120px;
+  --spacing-160: 160px;
+  --spacing-200: 200px;
+  --spacing-400: 400px;
+
+  /* ─── Primitives: Radii ──────────────────────────────────────────────── */
+  --radius-none: 0px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-xl: 40px;
+  --radius-2xl: 56px;
+  --radius-full: 999px;
+
+  /* ─── Global Tokens: Text ────────────────────────────────────────────── */
+  --global-text-lighter: var(--color-neutral-400);   /* #d9d9d7 */
+  --global-text-light: var(--color-neutral-500);     /* #a0a09b */
+  --global-text-dark: var(--color-neutral-600);      /* #5c5757 */
+  --global-text-darker: var(--color-neutral-700);    /* #464647 */
+  --global-text-white: var(--color-neutral-white);   /* #ffffff */
+  --global-text-heading: var(--color-misc-burgundy); /* #640038 */
+  --global-text-link: var(--color-pink-700);         /* #e30d76 */
+
+  /* ─── Styling: Semantic Colors ───────────────────────────────────────── */
+  /* Text */
+  --sem-text-heading: var(--color-neutral-700);      /* #464647 — Heading text */
+  --sem-text-body: var(--color-neutral-700);         /* #464647 — Body text */
+  --sem-text-on-primary: var(--color-neutral-white); /* #ffffff — Text on primary brand surfaces */
+  --sem-text-on-dark: var(--color-neutral-white);    /* #ffffff — Text on dark backgrounds */
+  --sem-text-primary: var(--color-purple-900);       /* #290163 — Primary brand text */
+  --sem-text-link: var(--color-purple-700);          /* #6953f3 — Link text */
+
+  /* Surfaces */
+  --sem-surface-primary: var(--color-purple-700);    /* #6953f3 — Primary brand surface */
+  --sem-surface-secondary: var(--color-purple-900);  /* #290163 — Secondary brand surface */
+  --sem-surface-light: var(--color-neutral-white);   /* #ffffff — Light surface */
+  --sem-surface-subtle: var(--color-neutral-50);     /* #fafafe — Subtle surface */
+
+  /* Cards */
+  --sem-card-background: var(--color-neutral-50);    /* #fafafe — Card background */
+
+  /* Buttons */
+  --sem-button-primary-bg: var(--color-neutral-white);    /* #ffffff — Primary button bg */
+  --sem-button-primary-border: var(--color-neutral-white); /* #ffffff — Primary button border */
+
+  /* Icons */
+  --sem-icon-primary: var(--color-neutral-white);    /* #ffffff — Primary icon */
+  --sem-icon-on-light: var(--color-purple-900);      /* #290163 — Icons on light bg */
+  --sem-icon-on-dark: var(--color-neutral-white);    /* #ffffff — Icons on dark bg */
+
+  /* ─── Styling: Semantic Spacing ──────────────────────────────────────── */
+  --sem-spacing-xs: var(--spacing-8);                /* 8px */
+  --sem-spacing-sm: var(--spacing-24);               /* 24px */
+  --sem-spacing-md: var(--spacing-32);               /* 32px */
+  --sem-spacing-lg: var(--spacing-40);               /* 40px */
+  --sem-spacing-xl: var(--spacing-64);               /* 64px */
+  --sem-spacing-2xl: var(--spacing-80);              /* 80px */
+  --sem-spacing-3xl: var(--spacing-120);             /* 120px */
+  --sem-spacing-section: var(--spacing-400);         /* 400px */
+  --sem-spacing-section-padding: var(--spacing-200); /* 200px */
+
+  /* ─── Styling: Semantic Radii ────────────────────────────────────────── */
+  --sem-radius-md: 16px;  /* Cards */
+  --sem-radius-lg: 24px;  /* Buttons */
+
+  /* ─── Shadows ────────────────────────────────────────────────────────── */
+  --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+
+  /* ─── Typography: Desktop (default) ──────────────────────────────────── */
+  --type-h1-size: 120px;
+  --type-h1-line: 96px;
+  --type-h2-size: 80px;
+  --type-h2-line: 64px;
+  --type-h3-size: 56px;
+  --type-h3-line: 48px;
+  --type-h4-size: 40px;
+  --type-h4-line: 48px;
+  --type-h5-size: 32px;
+  --type-h5-line: 40px;
+  --type-h6-size: 24px;
+  --type-h6-line: 32px;
+  --type-body-lg-size: 24px;
+  --type-body-lg-line: 32px;
+  --type-body-md-size: 18px;
+  --type-body-md-line: 28px;
+  --type-body-sm-size: 16px;
+  --type-body-sm-line: 24px;
+  --type-weight-regular: 400;
+  --type-weight-bold: 700;
+
+  /* ─── Backward-compat aliases (used by existing components) ──────────── */
+  --color-brand-50: var(--color-purple-100);
+  --color-brand-100: var(--color-purple-100);
+  --color-brand-200: var(--color-purple-200);
+  --color-brand-300: var(--color-purple-300);
+  --color-brand-400: var(--color-purple-400);
+  --color-brand-500: var(--color-purple-500);
+  --color-brand-600: var(--color-purple-700);  /* Primary purple */
+  --color-brand-700: var(--color-purple-700);
+  --color-brand-800: var(--color-purple-800);
+  --color-brand-900: var(--color-purple-900);  /* Deep indigo */
+
+  --color-neutral-0: var(--color-neutral-white);
+
+  --color-accent-green: var(--color-green-600);
+  --color-accent-blue: var(--color-blue-600);
+  --color-accent-yellow: var(--color-yellow-600);
+  --color-accent-purple: var(--color-purple-600);
+
+  --color-surface-primary: var(--sem-surface-light);
+  --color-surface-secondary: var(--sem-surface-subtle);
+  --color-surface-brand: var(--sem-surface-primary);
+  --color-surface-inverse: var(--sem-surface-secondary);
+
+  --color-text-primary: var(--sem-text-primary);
+  --color-text-secondary: var(--sem-text-body);
+  --color-text-on-brand: var(--sem-text-on-primary);
+  --color-text-inverse: var(--sem-text-on-dark);
+  --color-text-link: var(--sem-text-link);
+
+  --color-border-default: var(--color-neutral-300);
+  --color-border-strong: var(--color-neutral-400);
+  --color-border-brand: var(--color-purple-700);
+
+  --color-feedback-success: var(--color-misc-success-dark);
+  --color-feedback-error: var(--color-misc-error-dark);
+  --color-feedback-success-light: var(--color-misc-success-light);
+  --color-feedback-error-light: var(--color-misc-error-light);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+/* ─── Typography: Tablet (768px–1279px) ──────────────────────────────── */
+@media (max-width: 1279px) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --type-h1-size: 80px;
+    --type-h1-line: 64px;
+    --type-h2-size: 56px;
+    --type-h2-line: 48px;
+    --type-h3-size: 40px;
+    --type-h3-line: 32px;
+    --type-h4-size: 32px;
+    --type-h4-line: 40px;
+    --type-h5-size: 28px;
+    --type-h5-line: 32px;
+    --type-h6-size: 24px;
+    --type-h6-line: 32px;
+    --type-body-lg-size: 20px;
+    --type-body-lg-line: 32px;
+    --type-body-md-size: 18px;
+    --type-body-md-line: 28px;
+    --type-body-sm-size: 16px;
+    --type-body-sm-line: 24px;
   }
 }
 
+/* ─── Typography: Mobile (≤767px) ────────────────────────────────────── */
+@media (max-width: 767px) {
+  :root {
+    --type-h1-size: 56px;
+    --type-h1-line: 48px;
+    --type-h2-size: 40px;
+    --type-h2-line: 32px;
+    --type-h3-size: 32px;
+    --type-h3-line: 24px;
+    --type-h4-size: 28px;
+    --type-h4-line: 32px;
+    --type-h5-size: 24px;
+    --type-h5-line: 32px;
+    --type-h6-size: 20px;
+    --type-h6-line: 28px;
+    --type-body-lg-size: 18px;
+    --type-body-lg-line: 28px;
+    --type-body-md-size: 16px;
+    --type-body-md-line: 24px;
+    --type-body-sm-size: 14px;
+    --type-body-sm-line: 20px;
+  }
+}
+
+/* =========================================================================
+   Tailwind v4 Theme — map CSS custom properties → utility classes
+   =========================================================================
+   This @theme block tells Tailwind which custom values to generate
+   utilities for (e.g. bg-brand-600, text-surface-primary, rounded-lg).
+   ========================================================================= */
+
+@theme inline {
+  /* ─── Content max-widths (matches Figma content containers) ──────────── */
+  --max-width-content: var(--max-width-content);  /* 1216px → max-w-content */
+  --max-width-text: var(--max-width-text);        /* 904px → max-w-text */
+
+  /* ─── Spacing: 4px grid (matches Figma Spacing primitives) ──────────── */
+  --spacing: 4px; /* p-1=4px, p-2=8px, p-6=24px, p-8=32px, p-10=40px … */
+
+  /* Named semantic spacing for non-standard values */
+  --spacing-section: var(--sem-spacing-section-padding);  /* 200px → py-section */
+  --spacing-3xl: var(--sem-spacing-3xl);                  /* 120px → py-3xl */
+
+  /* ─── Content max-widths (matches Figma content containers) ──────────── */
+  --max-width-content: 1216px;  /* Main content blocks (headings, cards, etc.) */
+  --max-width-text: 904px;      /* Body text paragraphs */
+
+  /* ─── Border radius (matches Figma Radius primitives) ───────────────── */
+  --radius-none: var(--radius-none);    /* 0px   → rounded-none */
+  --radius-sm: var(--radius-sm);        /* 4px   → rounded-sm */
+  --radius-md: var(--radius-md);        /* 8px   → rounded-md */
+  --radius-lg: var(--radius-lg);        /* 16px  → rounded-lg  (Figma cards + buttons) */
+  --radius-xl: var(--radius-xl);        /* 40px  → rounded-xl */
+  --radius-2xl: var(--radius-2xl);      /* 56px  → rounded-2xl */
+  --radius-full: var(--radius-full);    /* 999px → rounded-full */
+
+  /* ─── Typography (auto-responsive via CSS var media queries) ─────────── */
+  --font-heading: 'Berlingske Serif', Georgia, serif;
+  --font-body: 'Lota Grotesque', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: ui-monospace, monospace;
+
+  /* ═══ Custom Typography Scale ══════════════════════════════════════════
+     Tailwind v4 syntax: --text-* creates .text-* utilities
+     Line height uses --text-*--line-height pattern
+     H1-H5 hierarchy with consistent ratios across breakpoints
+     ═══════════════════════════════════════════════════════════════════ */
+  
+  /* H1-H5 — Hero headlines and section headings (Berlingske Serif Bold) */
+  --text-h1: var(--type-h1-size);
+  --text-h1--line-height: var(--type-h1-line);
+  --text-h2: var(--type-h2-size);
+  --text-h2--line-height: var(--type-h2-line);
+  --text-h3: var(--type-h3-size);
+  --text-h3--line-height: var(--type-h3-line);
+  --text-h4: var(--type-h4-size);
+  --text-h4--line-height: var(--type-h4-line);
+  --text-h5: var(--type-h5-size);
+  --text-h5--line-height: var(--type-h5-line);
+  --text-h6: var(--type-h6-size);
+  --text-h6--line-height: var(--type-h6-line);
+
+  /* Body — paragraph text (Lota Grotesque Regular) */
+  --text-body-lg: var(--type-body-lg-size);
+  --text-body-lg--line-height: var(--type-body-lg-line);
+  --text-body-md: var(--type-body-md-size);
+  --text-body-md--line-height: var(--type-body-md-line);
+  --text-body-sm: var(--type-body-sm-size);
+  --text-body-sm--line-height: var(--type-body-sm-line);
+
+  /* ─── Shadows ──────────────────────────────────────────────────────── */
+  --shadow-xs: var(--shadow-xs);
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+  --shadow-xl: var(--shadow-xl);
+
+  /* ─── Colors ───────────────────────────────────────────────────────── */
+  /* Color palette — full Figma primitives */
+  --color-purple-100: var(--color-purple-100);
+  --color-purple-200: var(--color-purple-200);
+  --color-purple-300: var(--color-purple-300);
+  --color-purple-400: var(--color-purple-400);
+  --color-purple-500: var(--color-purple-500);
+  --color-purple-600: var(--color-purple-600);
+  --color-purple-700: var(--color-purple-700);
+  --color-purple-800: var(--color-purple-800);
+  --color-purple-900: var(--color-purple-900);
+
+  --color-indigo-100: var(--color-indigo-100);
+  --color-indigo-200: var(--color-indigo-200);
+  --color-indigo-300: var(--color-indigo-300);
+  --color-indigo-400: var(--color-indigo-400);
+  --color-indigo-500: var(--color-indigo-500);
+  --color-indigo-600: var(--color-indigo-600);
+  --color-indigo-700: var(--color-indigo-700);
+  --color-indigo-800: var(--color-indigo-800);
+  --color-indigo-900: var(--color-indigo-900);
+
+  --color-blue-100: var(--color-blue-100);
+  --color-blue-200: var(--color-blue-200);
+  --color-blue-300: var(--color-blue-300);
+  --color-blue-400: var(--color-blue-400);
+  --color-blue-500: var(--color-blue-500);
+  --color-blue-600: var(--color-blue-600);
+
+  --color-teal-100: var(--color-teal-100);
+  --color-teal-200: var(--color-teal-200);
+  --color-teal-300: var(--color-teal-300);
+  --color-teal-400: var(--color-teal-400);
+  --color-teal-500: var(--color-teal-500);
+  --color-teal-600: var(--color-teal-600);
+  --color-teal-700: var(--color-teal-700);
+  --color-teal-800: var(--color-teal-800);
+  --color-teal-900: var(--color-teal-900);
+
+  --color-green-100: var(--color-green-100);
+  --color-green-200: var(--color-green-200);
+  --color-green-300: var(--color-green-300);
+  --color-green-400: var(--color-green-400);
+  --color-green-500: var(--color-green-500);
+  --color-green-600: var(--color-green-600);
+
+  --color-pine-100: var(--color-pine-100);
+  --color-pine-200: var(--color-pine-200);
+  --color-pine-300: var(--color-pine-300);
+  --color-pine-400: var(--color-pine-400);
+  --color-pine-500: var(--color-pine-500);
+  --color-pine-600: var(--color-pine-600);
+  --color-pine-700: var(--color-pine-700);
+  --color-pine-800: var(--color-pine-800);
+  --color-pine-900: var(--color-pine-900);
+
+  --color-yellow-100: var(--color-yellow-100);
+  --color-yellow-200: var(--color-yellow-200);
+  --color-yellow-300: var(--color-yellow-300);
+  --color-yellow-400: var(--color-yellow-400);
+  --color-yellow-500: var(--color-yellow-500);
+  --color-yellow-600: var(--color-yellow-600);
+
+  --color-gold-100: var(--color-gold-100);
+  --color-gold-200: var(--color-gold-200);
+  --color-gold-300: var(--color-gold-300);
+  --color-gold-400: var(--color-gold-400);
+  --color-gold-500: var(--color-gold-500);
+  --color-gold-600: var(--color-gold-600);
+  --color-gold-700: var(--color-gold-700);
+  --color-gold-800: var(--color-gold-800);
+  --color-gold-850: var(--color-gold-850);
+  --color-gold-900: var(--color-gold-900);
+
+  --color-orange-100: var(--color-orange-100);
+  --color-orange-200: var(--color-orange-200);
+  --color-orange-300: var(--color-orange-300);
+  --color-orange-400: var(--color-orange-400);
+  --color-orange-500: var(--color-orange-500);
+  --color-orange-600: var(--color-orange-600);
+  --color-orange-700: var(--color-orange-700);
+  --color-orange-800: var(--color-orange-800);
+  --color-orange-900: var(--color-orange-900);
+
+  --color-red-100: var(--color-red-100);
+  --color-red-200: var(--color-red-200);
+  --color-red-300: var(--color-red-300);
+  --color-red-400: var(--color-red-400);
+  --color-red-500: var(--color-red-500);
+  --color-red-600: var(--color-red-600);
+  --color-red-700: var(--color-red-700);
+  --color-red-800: var(--color-red-800);
+  --color-red-900: var(--color-red-900);
+
+  --color-pink-100: var(--color-pink-100);
+  --color-pink-200: var(--color-pink-200);
+  --color-pink-300: var(--color-pink-300);
+  --color-pink-400: var(--color-pink-400);
+  --color-pink-500: var(--color-pink-500);
+  --color-pink-600: var(--color-pink-600);
+  --color-pink-700: var(--color-pink-700);
+  --color-pink-800: var(--color-pink-800);
+  --color-pink-900: var(--color-pink-900);
+
+  --color-violet-100: var(--color-violet-100);
+  --color-violet-200: var(--color-violet-200);
+  --color-violet-300: var(--color-violet-300);
+  --color-violet-400: var(--color-violet-400);
+  --color-violet-500: var(--color-violet-500);
+  --color-violet-600: var(--color-violet-600);
+  --color-violet-700: var(--color-violet-700);
+  --color-violet-800: var(--color-violet-800);
+  --color-violet-900: var(--color-violet-900);
+
+  --color-neutral-white: var(--color-neutral-white);
+  --color-neutral-50: var(--color-neutral-50);
+  --color-neutral-100: var(--color-neutral-100);
+  --color-neutral-200: var(--color-neutral-200);
+  --color-neutral-300: var(--color-neutral-300);
+  --color-neutral-400: var(--color-neutral-400);
+  --color-neutral-500: var(--color-neutral-500);
+  --color-neutral-600: var(--color-neutral-600);
+  --color-neutral-700: var(--color-neutral-700);
+  --color-neutral-black: var(--color-neutral-black);
+
+  /* Backward-compat brand aliases used by components */
+  --color-brand-50: var(--color-brand-50);
+  --color-brand-100: var(--color-brand-100);
+  --color-brand-200: var(--color-brand-200);
+  --color-brand-300: var(--color-brand-300);
+  --color-brand-400: var(--color-brand-400);
+  --color-brand-500: var(--color-brand-500);
+  --color-brand-600: var(--color-brand-600);
+  --color-brand-700: var(--color-brand-700);
+  --color-brand-800: var(--color-brand-800);
+  --color-brand-900: var(--color-brand-900);
+
+  --color-neutral-0: var(--color-neutral-0);
+
+  /* Accent */
+  --color-accent-green: var(--color-accent-green);
+  --color-accent-blue: var(--color-accent-blue);
+  --color-accent-yellow: var(--color-accent-yellow);
+  --color-accent-purple: var(--color-accent-purple);
+
+  /* Semantic surfaces */
+  --color-surface-primary: var(--color-surface-primary);
+  --color-surface-secondary: var(--color-surface-secondary);
+  --color-surface-brand: var(--color-surface-brand);
+  --color-surface-inverse: var(--color-surface-inverse);
+
+  /* Semantic text */
+  --color-text-primary: var(--color-text-primary);
+  --color-text-secondary: var(--color-text-secondary);
+  --color-text-on-brand: var(--color-text-on-brand);
+  --color-text-inverse: var(--color-text-inverse);
+  --color-text-link: var(--color-text-link);
+
+  /* Semantic border */
+  --color-border-default: var(--color-border-default);
+  --color-border-strong: var(--color-border-strong);
+  --color-border-brand: var(--color-border-brand);
+
+  /* Semantic feedback */
+  --color-feedback-success: var(--color-feedback-success);
+  --color-feedback-error: var(--color-feedback-error);
+  --color-feedback-success-light: var(--color-feedback-success-light);
+  --color-feedback-error-light: var(--color-feedback-error-light);
+}
+
+/* =========================================================================
+   Base Styles
+   ========================================================================= */
+
+html {
+  overflow-x: hidden;
+  /* Font smoothing for crisp text rendering */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-surface-primary);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+}
+
+/* =========================================================================
+   GSAP Animation Pre-loading States
+   =========================================================================
+   Hide elements before GSAP animates them to prevent content flash/jank.
+   These classes match the initial states used in gsap.from() animations.
+   ========================================================================= */
+
+.gsap-fade-in-initial {
+  opacity: 0;
+  transform: translateY(30px);
+  will-change: opacity, transform;
+}
+
+.gsap-fade-in-initial[data-y="40"] {
+  transform: translateY(40px);
+}
+
+.gsap-fade-in-initial[data-y="20"] {
+  transform: translateY(20px);
+}
+
+/* For stagger animations, hide all direct children */
+.gsap-stagger-initial > * {
+  opacity: 0;
+  transform: translateY(30px);
+  will-change: opacity, transform;
+}
+
+/* =========================================================================
+   Marquee Animation for Infinite Scrolling
+   ========================================================================= */
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee linear infinite;
+  will-change: transform;
+}
+
+/* =========================================================================
+   YuCoin Floating Animation - Diagonal Movement with Rotation
+   ========================================================================= */
+
+@keyframes floatCoin {
+  from {
+    transform: translateX(0) translateY(0) rotate(var(--rotation-start));
+  }
+  to {
+    /* Travel diagonally: left and slightly downward matching Yugi's flight angle */
+    transform: translateX(calc(-110vw - 100%)) translateY(20vh) rotate(var(--rotation-end));
+  }
+}
+
+.animate-float-coin {
+  will-change: transform;
 }

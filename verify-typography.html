@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Typography Verification Tool</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      padding: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .controls {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: #1a1a1a;
+      color: white;
+      padding: 15px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      z-index: 1000;
+    }
+    .controls h2 {
+      margin: 0 0 15px 0;
+      font-size: 18px;
+    }
+    .button-group {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+    button {
+      padding: 10px 20px;
+      background: #4a90e2;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    button:hover {
+      background: #357abd;
+    }
+    button.active {
+      background: #2ecc71;
+    }
+    .info {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      font-size: 14px;
+    }
+    .info-item {
+      background: #2a2a2a;
+      padding: 10px;
+      border-radius: 5px;
+    }
+    .info-label {
+      color: #888;
+      font-size: 12px;
+      margin-bottom: 5px;
+    }
+    .info-value {
+      font-size: 16px;
+      font-weight: bold;
+      color: #4a90e2;
+    }
+    iframe {
+      margin-top: 200px;
+      width: 100%;
+      height: calc(100vh - 220px);
+      border: 2px solid #333;
+      border-radius: 5px;
+    }
+    .instructions {
+      background: #f0f0f0;
+      padding: 15px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+      margin-top: 200px;
+    }
+    .instructions h3 {
+      margin-top: 0;
+    }
+    .instructions ol {
+      margin: 10px 0;
+      padding-left: 20px;
+    }
+    .instructions li {
+      margin: 5px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="controls">
+    <h2>🔍 Typography Verification Tool</h2>
+    <div class="button-group">
+      <button onclick="setWidth(1400)">Desktop (1400px)</button>
+      <button onclick="setWidth(900)">Tablet (900px)</button>
+      <button onclick="setWidth(375)">Mobile (375px)</button>
+      <button onclick="openInspector()">Open in New Tab</button>
+    </div>
+    <div class="info">
+      <div class="info-item">
+        <div class="info-label">Current Width</div>
+        <div class="info-value" id="currentWidth">-</div>
+      </div>
+      <div class="info-item">
+        <div class="info-label">Computed Font Size</div>
+        <div class="info-value" id="computedSize">-</div>
+      </div>
+      <div class="info-item">
+        <div class="info-label">Expected Font Size</div>
+        <div class="info-value" id="expectedSize">-</div>
+      </div>
+      <div class="info-item">
+        <div class="info-label">CSS Variable Value</div>
+        <div class="info-value" id="cssVarValue">-</div>
+      </div>
+      <div class="info-item">
+        <div class="info-label">Status</div>
+        <div class="info-value" id="status">-</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="instructions">
+    <h3>📋 How to Use This Tool</h3>
+    <ol>
+      <li>Click the breakpoint buttons above to resize the iframe to different widths</li>
+      <li>The tool will automatically inspect the hero heading and show computed values</li>
+      <li>Compare "Computed Font Size" with "Expected Font Size" to verify correctness</li>
+      <li>Click "Open in New Tab" to inspect manually in browser dev tools</li>
+    </ol>
+    <p><strong>Note:</strong> This tool loads http://localhost:3000 in an iframe. Make sure your dev server is running!</p>
+  </div>
+
+  <iframe id="testFrame" src="http://localhost:3000"></iframe>
+
+  <script>
+    const frame = document.getElementById('testFrame');
+    let currentWidthValue = 0;
+
+    function setWidth(width) {
+      currentWidthValue = width;
+      frame.style.width = width + 'px';
+      frame.style.maxWidth = width + 'px';
+      
+      // Update active button
+      document.querySelectorAll('button').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      event.target.classList.add('active');
+      
+      // Wait for iframe to resize and reflow
+      setTimeout(inspectHeading, 500);
+    }
+
+    function inspectHeading() {
+      try {
+        const iframeDoc = frame.contentDocument || frame.contentWindow.document;
+        const heading = iframeDoc.querySelector('h1');
+        
+        if (!heading) {
+          updateInfo('-', '-', '-', '-', '❌ Heading not found');
+          return;
+        }
+
+        // Get computed style
+        const computedStyle = frame.contentWindow.getComputedStyle(heading);
+        const fontSize = computedStyle.fontSize;
+        
+        // Get CSS variable value
+        const rootStyle = frame.contentWindow.getComputedStyle(iframeDoc.documentElement);
+        const cssVarValue = rootStyle.getPropertyValue('--type-display-xl-size').trim();
+        
+        // Determine expected size based on width
+        let expectedSize;
+        if (currentWidthValue >= 1280) {
+          expectedSize = '120px';
+        } else if (currentWidthValue >= 768) {
+          expectedSize = '80px';
+        } else {
+          expectedSize = '56px';
+        }
+        
+        // Check if matches
+        const matches = fontSize === expectedSize;
+        const status = matches ? '✅ Correct' : '❌ Mismatch';
+        
+        updateInfo(currentWidthValue + 'px', fontSize, expectedSize, cssVarValue, status);
+        
+      } catch (e) {
+        updateInfo(currentWidthValue + 'px', 'Error', '-', '-', '❌ ' + e.message);
+      }
+    }
+
+    function updateInfo(width, computed, expected, cssVar, status) {
+      document.getElementById('currentWidth').textContent = width;
+      document.getElementById('computedSize').textContent = computed;
+      document.getElementById('expectedSize').textContent = expected;
+      document.getElementById('cssVarValue').textContent = cssVar;
+      document.getElementById('status').textContent = status;
+      
+      // Color code the status
+      const statusEl = document.getElementById('status');
+      if (status.includes('✅')) {
+        statusEl.style.color = '#2ecc71';
+      } else if (status.includes('❌')) {
+        statusEl.style.color = '#e74c3c';
+      } else {
+        statusEl.style.color = '#4a90e2';
+      }
+    }
+
+    function openInspector() {
+      window.open('http://localhost:3000', '_blank');
+    }
+
+    // Auto-inspect after iframe loads
+    frame.addEventListener('load', () => {
+      setTimeout(() => {
+        if (currentWidthValue === 0) {
+          currentWidthValue = frame.offsetWidth;
+        }
+        inspectHeading();
+      }, 1000);
+    });
+
+    // Update width display on window resize
+    window.addEventListener('resize', () => {
+      if (currentWidthValue === 0) {
+        currentWidthValue = frame.offsetWidth;
+        inspectHeading();
+      }
+    });
+  </script>
+</body>
+</html>
